@@ -10,8 +10,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { mockUserProfile } from '@/lib/data';
-import type { UserProfile } from '@/lib/types';
 import { User, Mail, Phone, Home } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const profileSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -24,6 +24,7 @@ type ProfileFormValues = z.infer<typeof profileSchema>;
 
 export default function ProfilePage() {
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
@@ -37,13 +38,15 @@ export default function ProfilePage() {
 
   function onSubmit(data: ProfileFormValues) {
     console.log('Profile updated:', data);
-    // Here you would typically redirect or allow navigation.
-    // For now, we'll just show a toast.
+    // Here you would typically save the data to your backend.
+    // We'll simulate this by updating a value in localStorage.
     localStorage.setItem('isProfileComplete', 'true');
     toast({
       title: "Profile Updated",
       description: "Your information has been saved successfully.",
     });
+    // Redirect to outlets page after profile completion
+    router.push('/outlets');
   }
 
   return (
@@ -53,14 +56,14 @@ export default function ProfilePage() {
                 Complete Your Profile
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
-                Please fill out your details to continue.
+                This information is required before you can place an order.
             </p>
         </div>
 
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
-          <CardTitle className="font-headline">Edit Profile</CardTitle>
-          <CardDescription>This information is required to place orders and will be visible to staff.</CardDescription>
+          <CardTitle className="font-headline">Your Details</CardTitle>
+          <CardDescription>Please fill out your details. This information will be shared with the staff when you place an order.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -74,7 +77,7 @@ export default function ProfilePage() {
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <FormControl>
-                        <Input placeholder="John Doe" {...field} className="pl-10" />
+                        <Input placeholder="Your Name" {...field} className="pl-10" />
                       </FormControl>
                     </div>
                     <FormMessage />
@@ -118,7 +121,7 @@ export default function ProfilePage() {
                 name="address"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Address</FormLabel>
+                    <FormLabel>Address (Optional)</FormLabel>
                      <div className="relative">
                       <Home className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <FormControl>
@@ -130,7 +133,7 @@ export default function ProfilePage() {
                 )}
               />
               <div className="flex justify-end">
-                <Button type="submit">Save Changes</Button>
+                <Button type="submit">Save and Continue</Button>
               </div>
             </form>
           </Form>

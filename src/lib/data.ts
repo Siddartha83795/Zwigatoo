@@ -146,6 +146,15 @@ export const menuItems: MenuItem[] = [
   },
 ];
 
+export const mockUserProfile: UserProfile = {
+  id: 'user-charlie-789',
+  name: 'Charlie',
+  email: 'charlie@example.com',
+  phone: '+919876543212',
+  address: '321, Foodie Lane, Gourmet City, 110001',
+  isProfileComplete: false,
+};
+
 export const orders: Order[] = [
   {
     id: 'order-1',
@@ -199,17 +208,7 @@ export const orders: Order[] = [
     status: 'pending',
     estimatedWaitTime: 12,
     createdAt: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
-    clientName: 'David',
-    clientId: 'user-david-012'
+    clientName: 'Charlie',
+    clientId: 'user-charlie-789'
   },
 ];
-
-
-export const mockUserProfile: UserProfile = {
-  id: 'user-12345',
-  name: 'John Doe',
-  email: 'john.doe@example.com',
-  phone: '+919876543210',
-  address: '123, Foodie Lane, Gourmet City, 110001',
-  isProfileComplete: false,
-};

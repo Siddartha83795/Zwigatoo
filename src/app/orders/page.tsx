@@ -1,10 +1,30 @@
-import { orders as mockOrders } from '@/lib/data';
+import { orders as mockOrders, mockUserProfile } from '@/lib/data';
 import OrderCard from '@/components/order-card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function OrdersPage() {
-  const activeOrders = mockOrders.filter(o => ['pending', 'accepted', 'preparing', 'ready'].includes(o.status));
-  const pastOrders = mockOrders.filter(o => ['completed', 'cancelled'].includes(o.status));
+  // Simulate filtering orders for the logged-in user
+  const loggedInClientId = mockUserProfile.id;
+  const clientOrders = mockOrders.filter(o => o.clientId === loggedInClientId);
+
+  const activeOrders = clientOrders.filter(o => ['pending', 'accepted', 'preparing', 'ready'].includes(o.status));
+  const pastOrders = clientOrders.filter(o => ['completed', 'cancelled'].includes(o.status));
+
+  if (clientOrders.length === 0) {
+    return (
+       <div className="container py-12 text-center">
+        <h1 className="text-3xl font-bold font-headline">You have no orders yet</h1>
+        <p className="mt-4 text-muted-foreground">Looks like you haven't placed an order.</p>
+        <Button asChild className="mt-8">
+          <Link href="/outlets">
+            Order Now
+          </Link>
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div className="container py-12">
