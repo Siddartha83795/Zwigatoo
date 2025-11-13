@@ -37,6 +37,9 @@ export default function ProfilePage() {
 
   function onSubmit(data: ProfileFormValues) {
     console.log('Profile updated:', data);
+    // Here you would typically redirect or allow navigation.
+    // For now, we'll just show a toast.
+    localStorage.setItem('isProfileComplete', 'true');
     toast({
       title: "Profile Updated",
       description: "Your information has been saved successfully.",
@@ -47,17 +50,17 @@ export default function ProfilePage() {
     <div className="container py-12">
        <div className="text-center mb-8">
             <h1 className="text-4xl font-bold font-headline tracking-tight text-foreground sm:text-5xl">
-                Your Profile
+                Complete Your Profile
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">
-                View and edit your personal information.
+                Please fill out your details to continue.
             </p>
         </div>
 
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
           <CardTitle className="font-headline">Edit Profile</CardTitle>
-          <CardDescription>Make changes to your profile here. Click save when you're done.</CardDescription>
+          <CardDescription>This information is required to place orders and will be visible to staff.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>

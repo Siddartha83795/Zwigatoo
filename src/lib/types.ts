@@ -52,4 +52,5 @@ export type UserProfile = {
   email: string;
   phone: string;
   address?: string;
+  isProfileComplete?: boolean;
 };

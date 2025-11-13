@@ -210,5 +210,6 @@ export const mockUserProfile: UserProfile = {
   name: 'John Doe',
   email: 'john.doe@example.com',
   phone: '+919876543210',
-  address: '123, Foodie Lane, Gourmet City, 110001'
+  address: '123, Foodie Lane, Gourmet City, 110001',
+  isProfileComplete: false,
 };
