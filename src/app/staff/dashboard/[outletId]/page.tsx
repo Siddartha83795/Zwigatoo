@@ -6,7 +6,7 @@ import { outlets, orders as mockOrdersData } from '@/lib/data';
 import OrderCard from '@/components/order-card';
 import type { Order, OrderStatus } from '@/lib/types';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, use } from 'react';
 
 type StatusColumn = {
     title: string;
@@ -19,7 +19,8 @@ const columns: StatusColumn[] = [
     { title: "Ready for Pickup", statuses: ['ready'] }
 ];
 
-export default function StaffDashboardPage({ params }: { params: { outletId: string } }) {
+export default function StaffDashboardPage({ params: paramsPromise }: { params: Promise<{ outletId: string }> }) {
+  const params = use(paramsPromise);
   const outlet = useMemo(() => outlets.find(o => o.id === params.outletId), [params.outletId]);
   const [orders, setOrders] = useState<Order[]>(() => 
     mockOrdersData.filter(o => o.outletId === params.outletId)
