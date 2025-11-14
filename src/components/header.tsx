@@ -48,7 +48,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <div className="flex-1 flex items-center">
+        <div className="mr-auto flex items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <UtensilsCrossed className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline tracking-wide sm:inline-block">
@@ -67,7 +67,7 @@ export default function Header() {
             ))}
           </nav>
         </div>
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center gap-2">
            <ThemeToggle />
           <Button asChild variant="ghost" size="icon" className="relative">
               <Link href="/cart">
