@@ -55,7 +55,7 @@ export default function Header() {
           </span>
         </Link>
         <nav className="hidden gap-6 md:flex flex-1">
-          {navLinks.map((link) => (
+          {isLoggedIn && navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -67,10 +67,10 @@ export default function Header() {
         </nav>
         <div className="flex flex-1 items-center justify-end gap-2">
            <ThemeToggle />
-          <Button asChild variant="ghost" size="icon">
+          <Button asChild variant="ghost" size="icon" className="relative">
               <Link href="/cart">
                   <ShoppingCart className="h-5 w-5"/>
-                  {itemCount > 0 && (
+                  {isLoggedIn && itemCount > 0 && (
                       <span className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
                           {itemCount}
                       </span>
