@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import { predictWaitTime } from '@/app/actions';
 import type { PredictWaitTimeOutput } from '@/ai/flows/intelligent-wait-time-prediction';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import BackButton from '@/components/back-button';
 
 export default function CartPage() {
   const { cart, removeFromCart, updateQuantity, cartTotal, itemCount, outletId } = useCart();
@@ -72,6 +73,9 @@ export default function CartPage() {
 
   return (
     <div className="container py-12">
+      <div className='mb-8'>
+        <BackButton />
+      </div>
       <h1 className="text-4xl font-bold font-headline mb-8">Your Cart</h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
@@ -146,7 +150,7 @@ export default function CartPage() {
                         <Info className="h-4 w-4" />
                         <AlertTitle>Prediction Failed</AlertTitle>
                         <AlertDescription className="text-xs">{predictionError}</AlertDescription>
-                    </Alert>
+                    </Aler>
                 )}
               </div>
             </CardContent>

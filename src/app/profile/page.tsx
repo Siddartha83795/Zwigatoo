@@ -14,6 +14,8 @@ import { User, Mail, Phone, Home } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import type { UserProfile } from '@/lib/types';
+import BackButton from '@/components/back-button';
+
 
 const profileSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -45,6 +47,7 @@ export default function ProfilePage() {
     resolver: zodResolver(profileSchema),
     // Use values to ensure the form re-renders when userProfile changes
     values: userProfile,
+    mode: 'onTouched'
   });
 
   function onSubmit(data: ProfileFormValues) {
@@ -72,6 +75,9 @@ export default function ProfilePage() {
 
   return (
     <div className="container py-12">
+        <div className="mb-8">
+            <BackButton />
+        </div>
        <div className="text-center mb-8">
             <h1 className="text-4xl font-bold font-headline tracking-tight text-foreground sm:text-5xl">
                 Complete Your Profile

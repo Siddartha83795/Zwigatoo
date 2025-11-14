@@ -8,6 +8,7 @@ import { useCart } from '@/context/cart-context';
 import CartWidget from '@/components/cart-widget';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import BackButton from '@/components/back-button';
 
 export default function MenuPage({ params: paramsPromise }: { params: Promise<{ outletId: string }> }) {
   const params = use(paramsPromise);
@@ -43,6 +44,9 @@ export default function MenuPage({ params: paramsPromise }: { params: Promise<{ 
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
+        <div className="absolute top-20 left-4 md:left-8">
+            <BackButton />
+        </div>
         <div className="absolute bottom-0 left-0 w-full p-4 md:p-8">
             <div className="container">
                 <h1 className="text-4xl md:text-6xl font-bold font-headline text-foreground">{outlet.name}</h1>
