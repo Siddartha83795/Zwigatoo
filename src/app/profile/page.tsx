@@ -29,23 +29,39 @@ export default function ProfilePage() {
   const router = useRouter();
   const [userProfile, setUserProfile] = useState<UserProfile>(mockUserProfile);
 
+  // Load user profile from localStorage on initial render
+  useEffect(() => {
+    try {
+      const storedProfile = localStorage.getItem('userProfile');
+      if (storedProfile) {
+        setUserProfile(JSON.parse(storedProfile));
+      }
+    } catch (error) {
+      console.error("Failed to parse user profile from localStorage", error);
+    }
+  }, []);
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
-    defaultValues: userProfile,
+    // Use values to ensure the form re-renders when userProfile changes
+    values: userProfile,
   });
-  
-  useEffect(() => {
-    form.reset(userProfile);
-  }, [userProfile, form]);
-
 
   function onSubmit(data: ProfileFormValues) {
     console.log('Profile updated:', data);
-    // Simulate updating the user's profile state
-    setUserProfile(currentProfile => ({...currentProfile, ...data, isProfileComplete: true}));
+    const updatedProfile = {...userProfile, ...data, isProfileComplete: true};
     
-    // We'll simulate this by updating a value in localStorage.
-    localStorage.setItem('isProfileComplete', 'true');
+    // Update state
+    setUserProfile(updatedProfile);
+    
+    // Persist to localStorage
+    try {
+        localStorage.setItem('userProfile', JSON.stringify(updatedProfile));
+        localStorage.setItem('isProfileComplete', 'true');
+    } catch (error) {
+        console.error("Failed to save user profile to localStorage", error);
+    }
+
     toast({
       title: "Profile Updated",
       description: "Your information has been saved successfully.",
@@ -110,7 +126,7 @@ export default function ProfilePage() {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
+                    <FormLabel>Phone Number</_FormLabel>
                      <div className="relative">
                       <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <FormControl>
