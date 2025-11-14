@@ -51,31 +51,35 @@ export default function Header() {
               DineHub
             </span>
           </Link>
-          <nav className="hidden gap-6 md:flex">
-            {isClient && isLoggedIn && navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+           {isClient && isLoggedIn && (
+              <nav className="hidden gap-6 md:flex">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+           )}
         </div>
         <div className="flex flex-1 items-center justify-end gap-2">
            <ThemeToggle />
-          <Button asChild variant="ghost" size="icon" className="relative">
-              <Link href="/cart">
-                  <ShoppingCart className="h-5 w-5"/>
-                  {isClient && isLoggedIn && itemCount > 0 && (
-                      <span className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-                          {itemCount}
-                      </span>
-                  )}
-                  <span className="sr-only">View Cart</span>
-              </Link>
-          </Button>
+          {isClient && isLoggedIn && (
+            <Button asChild variant="ghost" size="icon" className="relative">
+                <Link href="/cart">
+                    <ShoppingCart className="h-5 w-5"/>
+                    {itemCount > 0 && (
+                        <span className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                            {itemCount}
+                        </span>
+                    )}
+                    <span className="sr-only">View Cart</span>
+                </Link>
+            </Button>
+          )}
 
           {isClient && (
             <>
