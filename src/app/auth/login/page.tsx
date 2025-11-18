@@ -197,7 +197,7 @@ export default function LoginPage() {
                     )}
                   />
                    <p className="text-xs text-center text-muted-foreground pt-4">
-                        Login will redirect to the selected outlet's dashboard.
+                        Login will redirect to the selected outlet&apos;s dashboard.
                     </p>
                   <Button type="submit" className="w-full">
                     Login as Staff
